@@ -3,6 +3,8 @@ package com.example.petproduct.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +51,18 @@ public class Petproductv1controller
 //	@GetMapping(value="/getPetproductv1")
 //	public Petproductv1model getPetproductv1(@PathVariable("nme") String name)
 //	{
-//		return petservice.getPetproductv1model(name);
+//		return petservice.getPetproductv1(name);
 //	}
+	
+	@GetMapping("/sortPetproductv1model/{field}")
+    public List<Petproductv1model> sortPetproductv1model(@PathVariable String field)
+    {
+	   return petservice.sortPetproductv1model(field);
+    }
+	
+	@GetMapping("/pagingAndSortingPetproductv1model/{offset}/{pageSize}/{field}")
+    public List<Petproductv1model> pagingAndSortingEmployees(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field) 
+    {
+	    return petservice.pagingAndSortingEmployees(offset, pageSize, field);
+    }
 }

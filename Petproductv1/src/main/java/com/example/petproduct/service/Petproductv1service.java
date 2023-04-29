@@ -3,6 +3,11 @@ package com.example.petproduct.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.example.petproduct.model.Petproductv1model;
@@ -37,9 +42,24 @@ public class Petproductv1service {
 		petrepository.deleteById(id);
 	}
 	
-//	public Petproductv1model getPetproductv1model(String name)
+//	public Petproductv1model getPetproductv1(String name) 
 //	{
 //		Petproductv1model m=petrepository.findById(name).get();
 //		return m;
 //	}
+	
+	public List<Petproductv1model> sortPetproductv1model(String field) 
+	{
+		
+		return petrepository.findAll(Sort.by(field));
+		//return petrepository.findAll(Sort.by(Direction.DESC, field));
+	}
+	
+	public List<Petproductv1model> pagingAndSortingEmployees(int offset,int pageSize,String field) 
+	{
+		Pageable paging=PageRequest.of(offset, pageSize).withSort(Sort.by(field));
+		Page<Petproductv1model> pet=petrepository.findAll(paging);
+		return pet.getContent();
+	}
+
 }
